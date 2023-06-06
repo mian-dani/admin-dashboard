@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 
 class User extends Authenticatable
 {
@@ -37,10 +38,19 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // public function country()
-    // {
-    //     return $this->belongsTo(Country::class, 'country_id', 'name');
-    // }
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public static function getAllUsers(){
+        $result = DB::table('users')
+        ->select(['id', 'name', 'email', 'country_id'])
+        ->get()
+        ->toArray();
+
+        return $result;
+    }
 
     /**
      * The attributes that should be cast.

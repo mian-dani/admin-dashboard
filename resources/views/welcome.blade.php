@@ -17,6 +17,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
 
+
+
+
+
         <!-- Styles -->
         <style>
             
@@ -129,6 +133,30 @@
             <h1>Crud Operations</h1>
 
                 <!-- Yajra Table Structure -->
+    <div class="container">
+        <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="date_filter">Date Filter:</label>
+                    <input type="date" id="startdatefilter" class="form-control" name="startdatefilter">
+                </div>
+                <div class="col-md-4">
+                    <label for="date_filter">Date Filter:</label>
+                    <input type="date" id="enddatefilter" class="form-control" name="enddatefilter">
+                </div>
+                <div class="col-md-4">
+                    <label for="country_filter">Country Filter:</label>
+                    <input type="text" id="countryfilter" class="form-control" name="countryfilter">
+                </div>
+                <div class="col-md-4">
+                    <button id="filterbtn" class="btn btn-primary mt-4">Apply Filters</button>
+                </div>
+        </div>
+
+        
+        <button onclick="exportToExcel()">Download Excel</button>
+
+            
+        </div>
             <table id="user-table" class="table">
                 <thead>
                     <tr>
@@ -148,7 +176,15 @@
                 <!-- Create New User Button -->
             <button  class="btn btn-create"  id="createUserBtn">Create New User</button>
 
-            <!-- Bootstrap Modal Popups to perform Crud Operations -->
+
+
+
+
+
+
+            <!--//////////////// Bootstrap Modal Popups to perform Crud Operations //////////-->
+
+
 
             <!-- PopUp Modal to create a new User  -->
             <div class="modal" tabindex="-1" id="createUserPopup">
@@ -175,8 +211,6 @@
                             <input id="createPopupPhone" name="phone" required></input>
                         </div>
                         <div class="form-group">
-                            <!-- <label for="country">Country:</label>
-                            <input id="createPopupCountry" name="country" required></input> -->
                             <select name="country" id="createPopupCountry">
                             <option disable selected>Country</option>
                                 @foreach ($countries as $country)
@@ -221,10 +255,7 @@
                             <label for="country">Country:</label>
                             <input id="editPopupCountry" name="country" required></input>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="description">Profile:</label>
-                            <img src="#" alt="Profile Image">
-                        </div> -->
+                        
                         <button type="button" id="saveChangesPopup">Save</button>
                     </form>
                     </div>
@@ -255,10 +286,7 @@
                             <label for="country">Country:</label>
                             <input id="viewPopupCountry" name="country" required></input>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="description">Profile:</label>
-                            <img src="#" alt="Profile Image">
-                        </div> -->
+                
                         <button type="button" id="viewChangesPopup">Done</button>
                     </form>
                     </div>
@@ -269,10 +297,12 @@
 
 
 
+                                <!-- Script Starts from here  -->
 
 
 
-        <!-- Daily Users Registration Chart -->
+
+        <!-- /////////////// Daily Users Registration Chart  //////////////////-->
             <script>
                 var userRegistrations = @json($userRegistrations);
                 var dates = Object.keys(userRegistrations);
@@ -295,7 +325,11 @@
 
 
 
-             <!-- Users according to Countries Graph -->
+
+
+
+
+             <!-- /////////////// Users according to Countries Graph on next View //////////-->
             <script>
                 window.addEventListener('DOMContentLoaded', (event) => {
                     var data = @json($data);
@@ -306,7 +340,21 @@
                             dataPoints: data,
                             click: function(e) {
                                 var country = e.dataPoint.label;
-                                window.location.href = '/chartuserdetail?country=' + country;
+                                window.location.href = '/countrywisedetail?country=' + country;
+                            }
+                        }],
+                        columns: [
+                            { data: 'name', name: 'name' },
+                            { data: 'population', name: 'population' },
+                            { data: 'actions', name: 'actions', orderable: false, searchable: false }
+                        ],
+                        columnDefs: [{
+                            targets: 'actions',
+                            render: function (data, type, row) {
+                                return `
+                                    <button class="btn btn-sm btn-info">Edit</button>
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                `;
                             }
                         }]
                     };
@@ -314,11 +362,21 @@
                     var chart = new CanvasJS.Chart("chartContainer", options);
                     chart.render();
                 });
+
+
             </script>
 
 
 
-                <!-- Crud Operations Yajra Table -->
+
+
+
+
+
+                <!-- //////////// Crud Operations Yajra Table  ////////////////////-->
+
+
+
             <script>
                 var table;
                 var userId =0;
@@ -333,12 +391,15 @@
                             {data: 'name', name: 'name'},
                             {data: 'email', name: 'email'},
                             {data: 'phone', name: 'phone'},
-                            {data: 'country_id', name: 'country_id'},
+                            {data: 'country.name', name: 'country.name'},
                             // {data: 'image', name: 'image'},
                             {data: 'action', name: 'action', orderable: false, searchable: false}
                         ]
                     });
                 });
+
+
+
 
                     // Handle Delete Operation
                 function deleteClicked(uId) {
@@ -372,10 +433,12 @@
                 }
 
 
-                    // Show PopUp on clicking  New User Button
+                    // Show PopUp form for new user  
                 $('#createUserBtn').on('click', function () {
                     $('#createUserPopup').show();
                 });
+
+
 
                     // Handle Create New User Operation
                 $(document).ready(function() {
@@ -391,12 +454,9 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        // Handle successful response
-                        console.log(response);
+
                         table.destroy();
-                            //  table.clear().destroy();
-                            //  $('#user-table').empty();
-                                // Reinitialize the DataTable with the updated data
+                                // Reinitialize the DataTable 
                                 table = $('#user-table').DataTable({
                                     data: response.data,
                                     columns: [
@@ -425,6 +485,8 @@
                 });
 
 
+
+
                     // Image Upload to Firebase
                 $(document).ready(function() {
                     $('#createPopupImage').change(function() {
@@ -432,17 +494,13 @@
                             var image = document.getElementById("createPopupImage").files[0];
                             var img = image.name;
 
-
                             // Initialize Firebase app
                             const firebaseConfig = {
                             apiKey: "AIzaSyCsJALsE6AEPvhLKo1HUYSPyzyo-0yQ6oU",
                             authDomain: "t-1-userauth.firebaseapp.com",
-                            // databaseURL: "https://t-1-userh-default-rtdb.firebaseio.com",
                             projectId: "t-1-userauth",
                             storageBucket: "t-1-userauth.appspot.com",
-                            // messagingSenderId: "5823983",
                             appId: "1:58239891333:web:f13a680d6254e91296f6ec",
-                            
                             };
 
                             firebase.initializeApp(firebaseConfig);
@@ -464,7 +522,9 @@
                 });
 
 
-                    // Will save updated Data to Database
+
+
+                    // Will send updated Data to controller 
                 $('#saveChangesPopup').on('click', function() {
                     // Get the updated values from the input fields in the popup
                     var newName = $('#editPopupName').val();
@@ -515,11 +575,14 @@
                 });
 
 
-                // Will Populate Data in Form to Edit
+
+
+                // Will Populate Data in Form (input fields) to Edit
                 function editClicked(uid){
+                         userId = uid;
                         
                         $.ajax({
-                            url: '/fetchuserdata/' + userId, 
+                            url: '/fetchuserdata/' + uid, 
                             type: 'GET',
                             success: function(response) {
                                 
@@ -543,10 +606,17 @@
                         });
                     }
 
+
+
+
+
+                    //Will show popup
                     $("#viewChangesPopup").on('click', ()=>{
                         $('#viewUserPopup').hide();
                     });
-                        //Will fetch and Populate Data in Form to View
+
+
+                    //Will fetch and Populate Data in Form to View
                 function viewClicked(uid){
                         userId = uid;
                         console.log(uid);
@@ -576,9 +646,71 @@
                         }
 
 
+
+
+
+
+                    // Appply filters on Yajra Table
+                        $('#filterbtn').on('click', function () {
+                    
+                            // table.clear();
+                            $.ajax({
+                                url: '/applyfilters',
+                                type: 'GET',
+                                data: {
+                                    country: $('#countryfilter').val(),
+                                    startdate: $('#startdatefilter').val(),
+                                    enddate: $('#enddatefilter').val()
+                                },
+                                success: function (response){
+                                    table.destroy();
+                                        table = $('#user-table').DataTable({
+                                            data: response.data,
+                                            columns: [
+                                                {data: 'name', name: 'name'},
+                                                {data: 'email', name: 'email'},
+                                                {data: 'phone', name: 'phone'},
+                                                {data: 'country_id', name: 'country_id'},
+                                                // {data: 'image', name: 'image'},
+                                                {data: 'action', name: 'action', orderable: false, searchable: false}
+                                            ]
+                                        });
+                                },
+                                error: function(xhr, status,error){
+                                    console.log(error);
+                                }
+                            });
+                        });
+
+
+
+
+
+
+                  // <!-- Download Excel file of table script-->
+                    function exportToExcel(){
+                        <a href="/export"></a>
+
+                    }
+
             </script>
         
 
 
+
+
+
+       
+           
+        
+
+          
+            
+
+
+
+
     </body>
+    
+     
 </html>

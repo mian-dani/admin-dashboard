@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -10,13 +14,16 @@ use App\Models\User;
 use App\Models\Country;
 
 
+
+
+
 class UserController extends Controller
 {
+                            /// initializing Yajra table
 
     public function yajraInitialize(Request $request){
         if ($request->ajax()) {
-            $query = User::query();
-            $users = $query->get();
+            $users = User::with('country')->get();
 
             return DataTables::of($users)->addIndexColumn()
                 ->addColumn('action', function ($user) {
@@ -27,17 +34,20 @@ class UserController extends Controller
                     ';
                 })->rawColumns(['action'])
                 ->make(true);
-
         }
-    
         return view('welcome');
     }
 
+
+
+        // Mian view on route ("/")   
     public function dashboard(){
-        //Daily user registration
+        
+        ////////////////          Daily User's Register Frequency Chart handler       ////////////
         $startDate = Carbon::now()->subDays(30); // Retrieve data for the last 7 days
         $endDate = Carbon::now();
 
+        $users = User::with('country')->get();
         $userRegistrations = User::select('created_at')
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
@@ -48,41 +58,50 @@ class UserController extends Controller
                 return $item->count();
             });
 
-            //country graph data 
+            //////////////////          Country Graph  handler       ////////////
             $usersByCountry = User::select('country_id', DB::raw('count(*) as total'))
                 ->groupBy('country_id')
                 ->get();
         
-            // Prepare the data in the required format for the graph
             $data = [];
             foreach ($usersByCountry as $user) {
             $c = Country::select(['name'])->where('id', $user->country_id)->first();
                 $data[] = [
-                //  'label' => $user->country_id,
-                'label' => $c->name,
+                 // 'label' => $user->country_id,
+                 'label' => $c->name,
                     'y' => $user->total,
                 ];
             }
-             
 
-             // crud functions view 
+
+
+             ///////////////// Will Populate the data in YAJRA Table on document.load     //////////////////
              $users = User::query()->get();
              $countries = Country::query()->get();
 
-            
         return view('welcome', compact('userRegistrations', 'data', 'users', 'countries'));
     }
 
+
+
+
+
+
+
+    /////////////////////       from here CRUD functions starts   ///////////
+
+
+
+                                    ////////// CREATE  ///////////////
         public function create(Request $request){
         
-            // Validate the incoming request data
             $validatedData = $request->validate([
                 'name'=>'required',
                 'email' => 'required|unique:users,email',
                 'phone'=>'required',
                 'country'=> 'required',
             ]);
-
+            
             User::create([
                     'name'=>$request->name,
                     'email'=>$request->email,
@@ -93,7 +112,6 @@ class UserController extends Controller
                     'image'=>$request->input('image_url'),
                 ]);
                 
-
             $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])
             ->get();
 
@@ -109,7 +127,9 @@ class UserController extends Controller
         }
 
 
-         // this method is deleting user from Yajra table
+
+
+                                         ////////// DELETE  ///////////////
         public function delete($id){
             $user = User::findOrFail($id);
             $user->delete();
@@ -127,7 +147,12 @@ class UserController extends Controller
                     ->make(true);
         }
 
-        // Fetch Users data to populate in popup for view or Edit Operation
+
+
+
+
+
+                                ////////////  VIEW //////////////////
         public function fetchuserdata($id){
                     $user = User::find($id);
                     $data = [
@@ -139,7 +164,10 @@ class UserController extends Controller
                     return response()->json($data);  
         }
 
-            // Update User Record
+
+
+
+                                 ////////////////    UPDATE //////////////////
         public function updateuser(Request $request, $id)
         {
             $newName = $request->input('name');
@@ -147,10 +175,8 @@ class UserController extends Controller
             $newPhone = $request->input('phone');
             $newCountry = $request->input('country');
             
-            // Find the user by ID
             $user = User::find($id);
 
-            // Update the user data
             $user->name = $newName;
             $user->email = $newEmail;
             $user->phone = $newPhone;
@@ -173,5 +199,71 @@ class UserController extends Controller
         }
 
 
+        
+
+                                //////// FILTERS ON YAJRA ///////////////////
+            public function applyFilter(Request $request){
+            
+                    if ($request->ajax()) {
+                        $query = User::query();
+                        
+                        // COUNTRY
+                        if ($request->filled('country')) {
+                            $query->where('country', $request->country)->select(['id', 'name', 'email', 'phone', 'country_id']);
+                        }
+                            // DATE
+                        if ($request->filled('startdate') && $request->filled('enddate')) {
+                            $start_date= $request->startdate;
+                            $end_date= $request->enddate;
+                            $query->whereBetween('created_at', [$start_date, $end_date])->select(['id', 'name', 'email', 'phone', 'country_id']);
+                        }
+
+                        $users = $query->get();
+                        
+                        return DataTables::of($users)->addIndexColumn()
+                            ->addColumn('action', function ($user) {
+                                return '
+                                    <button onclick="viewClicked(' . $user->id . ')" id="viewUserBtn" class="btn btn-view">View</button>
+                                    <button onclick="editClicked(' . $user->id . ')" id="editUserBtn" class="btn btn-edit">Edit</button>
+                                    <button onclick="deleteClicked(' . $user->id . ')"  id="deleteCrud" type="button" class="btn btn-delete">Delete</button>
+                                ';
+                            })->rawColumns(['action'])
+                            ->make(true);
+                    }
+                    return view('welcome');
+                }
+
+
+
+            
+                public function countryWiseDetail(Request $request){
+                    $country = $request->query('country');
+                    $cid = Country::select(['id'])->where('name', $country)->first();
+                    
+                    $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])->where('country_id', $cid->id)->get();
+                    $cIdToReplaceIdWithName;
+                    foreach ($users as $user) {
+                        $cIdToReplaceIdWithName = $user->country_id;
+                    }
+                    
+                    $c = Country::select(['name'])->where('id', $cIdToReplaceIdWithName)->first();
+                    $data = [
+                        'users' => $users,
+                    ];
+                    if ($request->expectsJson()) {
+                        return response()->json($data);
+                    }
+                    return view('countrywisedetail', compact('data', 'c'));
+                }
+
+
+               
+
+
+
+                    /////////////////     EXCEL DATA DOWNLOAD  //////////////////
+                public function export(){
+                    return Excel::download(new UserExport(), 'data.xlsx');
+                }
 
 }
