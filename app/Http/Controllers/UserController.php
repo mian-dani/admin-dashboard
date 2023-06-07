@@ -12,7 +12,8 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Country;
-
+use App\Mail\WelcomeEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -265,5 +266,22 @@ class UserController extends Controller
                 public function export(){
                     return Excel::download(new UserExport(), 'data.xlsx');
                 }
+
+
+                public function emailTemplateView(){
+                    return view('email.registered');
+                }
+
+                
+
+                //$user    parameter to this mthod
+                public function sendWelcomeEmail()
+                {
+                    // $sharukhemail = "shahrukh862001@gmail.com";
+                    $sharukhemail = "shahrukh862001@gmail.com";
+                    // Mail::to($user->email)->send(new WelcomeEmail($user));
+                    Mail::to($sharukhemail)->send(new WelcomeEmail($sharukhemail));
+                }
+
 
 }

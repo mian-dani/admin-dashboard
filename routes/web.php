@@ -32,3 +32,8 @@ Route::get('/getcountrywiserecords', [CountryWiseUsersController::class, 'countr
 
 // route to export Excel file
 Route::get('/export', [UserController::class, 'export'])->name('export');
+
+
+
+Route::get('/emailtemplateview', [UserController::class, 'emailTemplateView'])->name('email.registered');
+Route::get('/sendwelcomeemail', [UserController::class, 'sendWelcomeEmail'])->name('email.send');
