@@ -44,7 +44,7 @@ class UserController extends Controller
         // Mian view on route ("/")   
     public function dashboard(){
         
-        ////////////////          Daily User's Register Frequency Chart handler       ////////////
+        //////////////          Daily User's Register Frequency Chart handler       ////////////
         $startDate = Carbon::now()->subDays(30); // Retrieve data for the last 7 days
         $endDate = Carbon::now();
 
@@ -278,6 +278,7 @@ class UserController extends Controller
                 public function sendWelcomeEmail()
                 {
                     $sharukhemail = "shahrukh862001@gmail.com";
+                    // $sharukhemail = "miandaniofficial@gmail.com";
                     // Mail::to($user->email)->send(new WelcomeEmail($user));
                     Mail::to($sharukhemail)->send(new WelcomeEmail($sharukhemail));
                 }
