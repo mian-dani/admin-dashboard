@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\GeneratePdfController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -34,6 +34,15 @@ Route::get('/getcountrywiserecords', [CountryWiseUsersController::class, 'countr
 Route::get('/export', [UserController::class, 'export'])->name('export');
 
 
-
+// route to send email and email view 
 Route::get('/emailtemplateview', [UserController::class, 'emailTemplateView'])->name('email.registered');
 Route::get('/sendwelcomeemail', [UserController::class, 'sendWelcomeEmail'])->name('email.send');
+
+
+// route to generate pdf
+Route::get('/generatepdf', [GeneratePdfController::class, 'generatePdf'])->name('generatepdf');
+Route::get('/postalpdf', function () {
+    return view('pdf.postalentry');
+});
+
+

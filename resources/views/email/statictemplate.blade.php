@@ -144,19 +144,19 @@
                                                 <tr>
                                                     <td align="center" valign="top" id="userInfo">
                                                         <td class="contactInfo">
-                                                            <p>{{ $role }} {{ $field }}</p>
+                                                            <p>Frontend React.js & Next.js</p>
                                                             <p>1020202111-222</p>
-                                                            <p>{{ $fname }}, {{ $lname }}</p>
-                                                            <p>{{ $address }}</p>
-                                                            <p>{{ $city }}, {{ $region}}, {{$zipcode}}</p>
-                                                            <p>{{ $country }}</p>
+                                                            <p>Receiver Receiver</p>
+                                                            <p>Dha - 4</p>
+                                                            <p>lahore</p>
+                                                            <p>pak</p>
                                                         </td>
                                                         <td class="title">
                                                             <h6>YOUR APPLICATION</h6>
                                                         </td>
                                                         <td class="date">
                                                             <p>LONDON UNITED KINGDOM</p>
-                                                            <p id="applicationDate">{{ now()->format('l, d F Y') }}</p>
+                                                            <p id="applicationDate">Monday, 12 feb 2021</p>
                                                         </td>
                                                     </td>
                                                 </tr>
@@ -165,8 +165,8 @@
                                             <table id="tableBody" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse: collapse; margin-top: 1rem">
                                                 <tr>
                                                     <td align="start" valign="top" class="emailBody" style="margin-top: 1rem; margin-bottom: 1rem;">
-                                                        <p>Hi {{ $fname }}, {{ $lname }}</p>
-                                                        <p>We wish to thank you for your recent application for {{ $role }} position</p>
+                                                        <p>Hi Receiver</p>
+                                                        <p>We wish to thank you for your recent application for React.js position</p>
                                                         
                                                         <p>Unfortunately, your application on this occasion has been rejected. We will keep your application in the file structure for future use.</p>
                                                         

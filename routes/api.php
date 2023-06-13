@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::post('collectuserdata', [EmailController::class, 'collectUserData'])->name('email.datacollection');
+Route::get('sendemails', [EmailController::class, 'sendEmails'])->name('sendemails');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
