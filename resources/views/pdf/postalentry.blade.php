@@ -8,7 +8,8 @@
     <style>
 
         body{
-            font-family:  sans-serif !important;
+            font-family: 'open sans', sans-serif;
+            letter-spacing: 0.8px;
         }
 
             /* =========== userInfoAtTop section style  ===================*/
@@ -17,13 +18,14 @@
             margin: 0 auto;
             padding-right: 2%;
             padding-left: 2%;
-            margin-top: -35px;
+            margin-top: -45px;
         }
         
         #userInfoAtTop{
             width: 100%;
             /* margin-left: 10%; */
-            line-height: 1;
+            /* line-height: 1; */
+            letter-spacing: 0.2px;
         }
 
         #userInfoEmptyChild {
@@ -41,6 +43,12 @@
             text-align: center;
         }
 
+        #userInfoSecondChild p{
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 1.2px;
+        }
+
         #userInfoAtTop tr td p {
            font-size: 10px;
             /* padding-left: 2%; */
@@ -53,7 +61,7 @@
         /* =========== #headerTable section style  ===================*/
         #headerTable{
             width: 100%;
-            
+            margin-top: -10px;
         }
 
         #headerTableFirst{
@@ -64,13 +72,14 @@
         .postalEntry{
             font-size: 18px;
             letter-spacing: 2px;
-
+            font-family: 'open sans', sans-serif !important;
+            
         }
 
         .postalEntryForm{
             margin-top: 22px;
             font-size: 11px;
-            margin-left: 20px;
+            margin-left: 17px;
         }
 
         #headerTableFirst hr{
@@ -85,15 +94,15 @@
             text-align: center;
         }
 
-        /* #zimoo{
-            width: 140px;
-            height: 70px;
+        #zimoo{
+            width: 180px;
+            
         }
-
-        #civica{
-            width: 140px;
-            height: 25px;
-        } */
+       
+         #civica{
+            margin-top: 10px;
+            width: 180px;
+        } 
 
         #headerTableSecond img{
             margin-bottom: 5px;
@@ -105,8 +114,10 @@
 
         #headerTableThird p{
             text-align: center;
-            font-size: 10px;
+            font-size: 11px;
             line-height: 1;
+            font-family: 'open sans', sans-serif !important;
+            /* font-weight: bold; */
         }
 
 
@@ -125,11 +136,17 @@
             font-size: 12px;
         }
 
+        .printPBold{
+            font-size: 12px;
+            font-family: 'open sans', sans-serif !important;
+            font-weight: bold;
+        }
+
         /* =========== uniqueNoInputParent section style  ===================*/
         #uniqueNoInputParent{
             margin: auto;
             width: 90%;
-            
+            margin-top: -10px;
         }
 
         #uniqueIdP{
@@ -144,25 +161,26 @@
             margin-left: 28%;
             width: 280px;
             height: 35px;
-            border-radius: 5px;
-
+            border-radius: 8px;
+            border: 2px solid black;
         }
 
-        
-        
 
 
         /* =========== #inputFieldParent section style  ===================*/
         #inputFieldParent {
-            width: 100%;
+            width: 93%;
             margin: auto;
+            margin-top: -10px;
         }
 
         #inputFieldParent input{
             width: 280px;
             height: 35px;
             border-radius: 8px;
+            border: 2px solid black;
             display: block;
+            margin-top: 3px;
         }
 
         #inputFieldParent tr td{
@@ -171,16 +189,19 @@
 
         #inputFieldParent label{
             font-size: 8px;
+            font-family: 'open sans', sans-serif !important;
+            font-weight: bold;
         }
 
         .secondChildInput{
-            padding-left: 150px;
+            padding-left: 80px;
         }
 
         /* =========== userInfoAtTop section style  ===================*/
         #markInstructionParent{
             /* margin-top: -2px; */
             width: 100%;
+            
         }
 
         #markInstructionParent tr td{
@@ -194,30 +215,19 @@
         .postalAddressesParent{
             width: 100%;
             /* margin-top: -10px; */
+            
         }
-
-        /* .postalAddressesParent p{
-            font-size: 7px;
-            margin-bottom: 25px;
-        } */
 
         .postalP{
-            font-size: 7px;
-            margin-bottom: 25px;
-        }
-
-        /* .postalAddressesParent h6{
             font-size: 8px;
-            font-weight: light;
-            line-height: 0;
-        } */
-
-        .addresses{
-            /* margin-top: -10px; */
+            margin-bottom: 25px;
+            
+            font-weight: bold;
         }
+
 
         .addresses p{
-            font-size: 10px;
+            font-size: 11px;
             line-height: 0.4;
             margin-bottom: 0px;
             /* font-weight: bold; */
@@ -243,38 +253,31 @@
         #postalAddressesSecond{
             width: 49%;
             padding-left: 20px;
-            
+            padding-top: 13px;
         }
-        /* #postalAddressesHr{
-            width: 1%;
-        } */
 
         #check{
-            margin-left: 140px;
+            margin-left: 128px;
+            transform: scale(1.7);
+            padding-top: 9px;
         }
 
-        
         
         /* =========== #remindersNote section style  ===================*/
         
         #remindersNote {
-            
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
-            /* margin-top: -10px; */
+            margin-top: 10px;
+            
         }
 
         #remindersNote p{
             text-align: center;
-            font-size: 8px;
+            font-size: 7.5px;
+            font-family: 'open sans', sans-serif !important;
+            font-weight: bold;
             /* line-height: 1; */
-            
-        }
-
-        #companyNoParent{
-            width: 60%;
-            margin: 0 auto;
-            /* margin-top: -20px; */
         }
 
         #companyNo{
@@ -286,12 +289,12 @@
 
         #footerImages{
             width: 100%;
+            margin-top: -5px;
         }
 
         #footerImages tr td{
             width: 33%;
         }
-
 
         #start{
             vertical-align: bottom;
@@ -309,18 +312,10 @@
 
         .qr{
             margin-left: 80px;
+            height: 60px;
         }
-   
-
-
-        .civica2{
-            /* width: 75px; */
-            
-            
-        }
-
+        
         .poweredby{
-            
             height: 50px;
         }
 
@@ -328,9 +323,6 @@
             height: 40px;
         }
         
-
-        
-
 
     </style>
 </head>
@@ -346,11 +338,10 @@
 
                             </td>
                             <td id="userInfoFirstChild">
-                                <!-- <p>Lorem ipfficiis soluta do hdhdhd incidunt,uta dolor totam incidunt, autem offi autem officia nemo impedit qui repudiandae minima, corrupti ut veniam? </p> -->
                                 <p>A POSTAL ENTRY MUST BE ACCOMPAINED WITH AN ACTIVE ACCOUNT, PLEASE ENSURE YOU CREATED AN ACCOUNT. ALL DETAILS ON THIS ENTRY FORM MUST CORRESPOND TO THE DETAILS ON ACCOUNT  </p>
                             </td>
                             <td id="userInfoSecondChild">
-                                <p>V.8339</p>
+                                <p>V.7861</p>
                             </td>
                         </tr>
                     </table>
@@ -366,7 +357,7 @@
                         </td>
                         <td id="headerTableSecond">
                             <img id="zimoo" src="{{ public_path('/images/zimo.png') }}" alt="image">
-                            <img id="civica" src="{{ public_path('/images/civica.png') }}" alt="image"> 
+                            <img id="civica" src="{{ public_path('/images/civica2.png') }}" alt="image"> 
                         </td>
                         <td id="headerTableThird">
                             <p>INFORMATION PROVIDED MUST WATCH</p>
@@ -380,7 +371,7 @@
                     <tr>
                         <td>
                             <p class="printP">PRINT THIS FORM AND COMPLETE IN <b>CAPITAL LETTERS</b>  USE <b>BLACK INK</b> </p>
-                            <p class="printP"><b>MAXIMUM ONE ENTRY PER ENVELOPE</b></p>
+                            <p class="printPBold">MAXIMUM ONE ENTRY PER ENVELOPE/POSTCARD</p>
                         </td>
                     </tr>
                 </table>
@@ -499,7 +490,7 @@
                         <td id="postalAddressesSecond">
                             <!-- <td id="secondCol"> -->
                                 <div>
-                                    <p class="ukpostText">UNITED KINGDOM POST</p>
+                                    <p class="ukpostText">INTERNATIONAL POST</p>
                                     <input id="check" type="checkbox">
                                 </div>
                                 <p class="postalP">PLEASE POST ENTRY FORM VIA FIRST OR SECOND CLASS POST TO</p>
@@ -536,17 +527,11 @@
                             <p>AN INCOMPLETE OR ILLEGIBLE FORM WILL NOT ENTER IN TO THE DRAW</p>
                             <P>POSTAL ENTERIES CAN ONLY BE SUBMITTED SINGULARLY. YOU MAY SEND AS MANY POSTAL AS YOU WISH. (ONE PER STAMPED ENVELOPE)</P>
                             <p id="companyNo">CIVICA ELECTION IS THE TRADING NAME REGISTERED COMPANY NUMBER 3383738. A CIVICA GROUP COMPANY</p>
+                            <p>CES IS A COMPANY WITHIN THE CIVICA GROUP</p>
                         </td>
                     </tr>
                 </table>
             </tr>
-            <table id="companyNoParent">
-                <tr >
-                    <td>
-                        
-                    </td>
-                </tr>
-            </table>
             <table id="footerImages">
                 <tr>
                     <td id="start">
