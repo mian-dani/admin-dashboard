@@ -41,8 +41,9 @@ Route::get('/sendwelcomeemail', [UserController::class, 'sendWelcomeEmail'])->na
 
 // route to generate pdf
 Route::get('/generatepdf', [GeneratePdfController::class, 'generatePdf'])->name('generatepdf');
-Route::get('/postalpdf', function () {
-    return view('pdf.postalentry');
-});
 
-
+// route to convert pdf
+Route::get('/convertuint', [GeneratePdfController::class, 'uint8Array'])->name('pdf.Uint8Array');
+Route::get('/convertbase', [GeneratePdfController::class, 'base64'])->name('pdf.base64');
+Route::get('/save-pdf', [GeneratePdfController::class, 'savePdf'])->name('pdf.savePdf');
+Route::get('/save-pdf-uint', [GeneratePdfController::class, 'savePdfUint'])->name('pdf.savePdfUint');
