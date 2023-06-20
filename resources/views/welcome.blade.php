@@ -688,10 +688,10 @@
 
 
                   // <!-- Download Excel file of table script-->
-                    function exportToExcel(){
-                        <a href="/export"></a>
+                    // function exportToExcel(){
+                    //     <a href="/export"></a>
 
-                    }
+                    // }
 
             </script>
         

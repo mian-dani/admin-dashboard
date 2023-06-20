@@ -38,6 +38,9 @@ Route::get('/export', [UserController::class, 'export'])->name('export');
 Route::get('/emailtemplateview', [UserController::class, 'emailTemplateView'])->name('email.registered');
 Route::get('/sendwelcomeemail', [UserController::class, 'sendWelcomeEmail'])->name('email.send');
 
+Route::get('/sothebyemailview', [UserController::class, 'sothebyEmailView']);
+
+
 
 // route to generate pdf
 Route::get('/generatepdf', [GeneratePdfController::class, 'generatePdf'])->name('generatepdf');
