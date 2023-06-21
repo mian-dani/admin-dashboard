@@ -32,7 +32,7 @@ Route::get('/getcountrywiserecords', [CountryWiseUsersController::class, 'countr
 
 // route to export Excel file
 Route::get('/export', [UserController::class, 'export'])->name('export');
-
+Route::post('/import', [UserController::class, 'import'])->name('import.excel');
 
 // route to send email and email view 
 Route::get('/emailtemplateview', [UserController::class, 'emailTemplateView'])->name('email.registered');

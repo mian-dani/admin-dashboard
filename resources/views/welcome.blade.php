@@ -153,7 +153,14 @@
         </div>
 
         
-        <button onclick="exportToExcel()">Download Excel</button>
+        <a href="/export"> <button >Download Excel</button> </a>
+
+        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="excel_file">
+            <button type="submit">Import</button>
+        </form>
+
 
             
         </div>
@@ -687,11 +694,7 @@
 
 
 
-                  // <!-- Download Excel file of table script-->
-                    // function exportToExcel(){
-                    //     <a href="/export"></a>
-
-                    // }
+                  
 
             </script>
         

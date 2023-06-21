@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\Country;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Imports\ExcelImport;
+
 
 
 
@@ -264,8 +266,18 @@ class UserController extends Controller
 
                     /////////////////     EXCEL DATA DOWNLOAD  //////////////////
                 public function export(){
-                    return Excel::download(new UserExport(), 'data.xlsx');
+                    return Excel::download(new UserExport(), 'data.csv');
                 }
+
+
+                public function import(Request $request){
+                    $file = $request->file('excel_file');
+                    
+                    $f = Excel::import(new ExcelImport, $file);
+                    
+                    return redirect()->back()->with('success', 'Data imported successfully.');
+                }
+
 
 
                 public function emailTemplateView(){
@@ -278,8 +290,9 @@ class UserController extends Controller
                 public function sendWelcomeEmail(){
 
                     $sharukhemail = "shahrukh862001@gmail.com";
-                    //  $sharukhemail = "miandaniofficial@gmail.com";
-                    $sharukhemail = "maheerahkhalid1086@gmail.com";
+                      $sharukhemail = "miandaniofficial@gmail.com";
+                    // $sharukhemail = "maheerahkhalid1086@gmail.com";
+                    // $sharukhemail = "muznafarooq21@gmail.com";
                     // Mail::to($user->email)->send(new WelcomeEmail($user));
                     Mail::to($sharukhemail)->send(new WelcomeEmail($sharukhemail));
                 }
