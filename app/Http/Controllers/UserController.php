@@ -115,9 +115,9 @@ class UserController extends Controller
                     'image'=>$request->input('image_url'),
                 ]);
                 
-            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])
+            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])->with('country')
             ->get();
-
+            
             return DataTables::of($users)->addIndexColumn()
                     ->addColumn('action', function ($user) {
                         return '
@@ -136,7 +136,7 @@ class UserController extends Controller
         public function delete($id){
             $user = User::findOrFail($id);
             $user->delete();
-            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])
+            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])->with('country')
             ->get();
 
             return DataTables::of($users)->addIndexColumn()
@@ -187,7 +187,7 @@ class UserController extends Controller
             $user->ip = $request->ip();
             $user->save();
 
-            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])
+            $users = User::select(['id', 'name', 'email', 'phone', 'country_id'])->with('country')
             ->get();
     
             return DataTables::of($users)->addIndexColumn()

@@ -165,7 +165,7 @@
 
             
         </div>
-            <table id="user-table" class="table">
+            <table id="user-table" class="table" style="width: 800px;">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -427,7 +427,8 @@
                                             {data: 'name', name: 'name'},
                                             {data: 'email', name: 'email'},
                                             {data: 'phone', name: 'phone'},
-                                            {data: 'country_id', name: 'country_id'},
+                                            {data: 'country.name', name: 'country.name'},
+                                            // {data: 'country_id', name: 'country_id'},
                                             // {data: 'image', name: 'image'},
                                             {data: 'action', name: 'action', orderable: false, searchable: false}
                                         ]
@@ -471,7 +472,8 @@
                                         {data: 'name', name: 'name'},
                                         {data: 'email', name: 'email'},
                                         {data: 'phone', name: 'phone'},
-                                        {data: 'country_id', name: 'country_id'},
+                                        {data: 'country.name', name: 'country.name'},
+                                        // {data: 'country_id', name: 'country_id'},
                                         // {data: 'image', name: 'image'},
                                         {data: 'action', name: 'action', orderable: false, searchable: false}
                                     ]
@@ -564,7 +566,8 @@
                                                 {data: 'name', name: 'name'},
                                                 {data: 'email', name: 'email'},
                                                 {data: 'phone', name: 'phone'},
-                                                {data: 'country_id', name: 'country_id'},
+                                                {data: 'country.name', name: 'country.name'},
+                                                // {data: 'country_id', name: 'country_id'},
                                                 // {data: 'image', name: 'image'},
                                                 {data: 'action', name: 'action', orderable: false, searchable: false}
                                             ]
@@ -678,7 +681,8 @@
                                                 {data: 'name', name: 'name'},
                                                 {data: 'email', name: 'email'},
                                                 {data: 'phone', name: 'phone'},
-                                                {data: 'country_id', name: 'country_id'},
+                                                {data: 'country.name', name: 'country.name'},
+                                                // {data: 'country_id', name: 'country_id'},
                                                 // {data: 'image', name: 'image'},
                                                 {data: 'action', name: 'action', orderable: false, searchable: false}
                                             ]
