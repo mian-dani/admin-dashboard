@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public static function getAllUsers(){
         $result = DB::table('users')
-        ->select(['id', 'name', 'email', 'country_id'])
+        ->select(['id', 'name', 'email', 'country_id', 'phone', 'ip'])
         ->get()
         ->toArray();
 

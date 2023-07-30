@@ -289,10 +289,10 @@ class UserController extends Controller
                 //$user    parameter to this mthod
                 public function sendWelcomeEmail(){
 
-                    $sharukhemail = "shahrukh862001@gmail.com";
+                    // $sharukhemail = "shahrukh862001@gmail.com";
                       $sharukhemail = "miandaniofficial@gmail.com";
                     // $sharukhemail = "maheerahkhalid1086@gmail.com";
-                    // $sharukhemail = "muznafarooq21@gmail.com";
+                    //  $sharukhemail = "ilsarajput5@gmail.com";
                     // Mail::to($user->email)->send(new WelcomeEmail($user));
                     Mail::to($sharukhemail)->send(new WelcomeEmail($sharukhemail));
                 }
